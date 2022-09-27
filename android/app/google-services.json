@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61410939359",
+    "project_id": "amaneciendo-6df12",
+    "storage_bucket": "amaneciendo-6df12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61410939359:android:3785bc89d33b74af1f346a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61410939359-15umtv3bfjj1khid5nfdt5fhh5fkii3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMrVNQ6b45mVAEayU5FfkYVkPmYNOfidQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61410939359-15umtv3bfjj1khid5nfdt5fhh5fkii3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

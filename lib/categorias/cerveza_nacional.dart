@@ -20,13 +20,13 @@ class cervezanacional extends StatefulWidget {
 
 // ignore: camel_case_types
 class _cervezanacionalState extends State<cervezanacional> {
-  final url = Uri.parse("http://192.168.1.108:4000/api/carta/1");
+  final url = Uri.parse("http://192.168.20.25:4000/api/carta/1");
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
   late Future<List<Carta>> cartita;
   final TextEditingController producto = TextEditingController();
   final TextEditingController volumen = TextEditingController();
   final TextEditingController valor = TextEditingController();
-  // final TextEditingController tipo = TextEditingController(text: "cerveza nacional");
+  final TextEditingController idtipo = TextEditingController(text: "1");
   File? _imagen;
   final picker = ImagePicker();
   void _getImagen() async {
@@ -249,14 +249,14 @@ class _cervezanacionalState extends State<cervezanacional> {
       "producto": producto.text,
       "volumen": volumen.text,
       "valor": valor.text,
-      // "tipo": tipo.text,
+      "id_tipo": idtipo.toString(),
       "imagen": _imagen.toString()
     };
     await http.post(url, headers: headers, body: jsonEncode(product));
     producto.clear();
     volumen.clear();
     valor.clear();
-    // tipo.clear();
+    idtipo.clear();
     setState(() {
       cartita = getCarta();
     });

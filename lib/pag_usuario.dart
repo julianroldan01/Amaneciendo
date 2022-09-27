@@ -14,7 +14,7 @@ class pagusuario extends StatefulWidget {
 
 // ignore: camel_case_types
 class _pagusuarioState extends State<pagusuario> {
-  final url = Uri.parse("http://192.168.1.108:4000/api/registro");
+  final url = Uri.parse("http://192.168.20.25:4000/api/registro");
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
   final TextEditingController nombre = TextEditingController();
   final TextEditingController direccion = TextEditingController();
@@ -203,7 +203,7 @@ class _pagusuarioState extends State<pagusuario> {
       "nombre": nombre.text,
       "direccion": direccion.text,
       "telefono": telefono.text,
-      "correo": correo.text,
+      "email": correo.text,
       "contrasena": contrasena.text,
       "id_rol": idrol.text
     };
