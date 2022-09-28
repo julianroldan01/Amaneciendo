@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/usuario_cliente.dart';
 import 'package:flutter_application_1/nosemaps/mapsample.dart';
 import 'descripcion.dart';
 import 'nosemaps/norte.dart';
@@ -20,6 +21,7 @@ class _noseState extends State<nose> {
   String pathImageSur = "images/sur.png";
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     // return Scaffold(
     //     body: ListView(
     //   children: [
@@ -182,28 +184,24 @@ class _noseState extends State<nose> {
         )),
       ],
     );
-    //   children: <Widget>[
-    //     iconBarN,
-    //     Container(
-    //       height: 135.0,
-    //       width: 135.0,
-    //       margin: const EdgeInsets.only(top: 0, left: 0, right: 2.0),
-    //       decoration: BoxDecoration(
-    //           shape: BoxShape.rectangle,
-    //           color: Colors.white,
-    //           image: DecorationImage(
-    //               fit: BoxFit.cover, image: AssetImage(pathImageNorte))),
-    //     )
-    //   ],
-    // );
-    return ListView(
+    return Scaffold(
+          appBar: AppBar(centerTitle: true,title: const Text("ZONAS", style: TextStyle(color:Colors.white)),
+          backgroundColor: Color(0xFFFFAE00),
+          actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+            tooltip: 'Login',
+            onPressed: ()=> FirebaseAuth.instance.signOut(),),
+      ],),
+    body: ListView(
       children: <Widget>[
         Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[iconBar, iconBar2]),
+            children: <Widget>[ 
+              iconBar, iconBar2]),
       ],
-    );
+    ));
   }
 }

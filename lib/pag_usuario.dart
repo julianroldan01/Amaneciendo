@@ -1,7 +1,10 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter_application_1/Utils.dart';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -14,13 +17,14 @@ class pagusuario extends StatefulWidget {
 
 // ignore: camel_case_types
 class _pagusuarioState extends State<pagusuario> {
-  final url = Uri.parse("http://192.168.20.25:4000/api/registro");
-  final headers = {"Content-Type": "application/json;charset=UTF-8"};
+  // final url = Uri.parse("http://192.168.20.25:4000/api/registro");
+  // final headers = {"Content-Type": "application/json;charset=UTF-8"};
+  final formKey = GlobalKey<FormState>();
   final TextEditingController nombre = TextEditingController();
   final TextEditingController direccion = TextEditingController();
   final TextEditingController telefono = TextEditingController();
-  final TextEditingController correo = TextEditingController();
-  final TextEditingController contrasena = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController idrol = TextEditingController(text: "2");
   String pathImage = "images/google.png";
   @override
@@ -42,10 +46,11 @@ class _pagusuarioState extends State<pagusuario> {
         ),
       ],
     );
-    return Scaffold(
+    return Form( key: formKey,
+      child: Scaffold(
       backgroundColor: Colors.transparent,
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
         children: <Widget>[
           Column(mainAxisAlignment: MainAxisAlignment.center),
           const SizedBox(
@@ -105,8 +110,8 @@ class _pagusuarioState extends State<pagusuario> {
           const Divider(
             height: 18.0,
           ),
-          TextField(
-            controller: correo,
+          TextFormField(
+            controller: _emailcontroller,
             keyboardType: TextInputType.emailAddress,
             enableInteractiveSelection: true,
             decoration: InputDecoration(
@@ -119,14 +124,20 @@ class _pagusuarioState extends State<pagusuario> {
                 borderSide: BorderSide(color: Colors.white),
               ),
             ),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (email) => email != null && !EmailValidator.validate(email) ?
+            'ingrese un email valido' : null
           ),
           const Divider(
             height: 18.0,
           ),
-          TextField(
-            controller: contrasena,
+          TextFormField(
+            controller: _passwordcontroller,
             enableInteractiveSelection: true,
             obscureText: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value)=> value != null && value.length < 6 ?
+            'Ingrese minimo 6 caracteres': null,
             decoration: InputDecoration(
               hintText: 'Crear contraseña',
               hintStyle: const TextStyle(
@@ -142,7 +153,7 @@ class _pagusuarioState extends State<pagusuario> {
             height: 18.0,
           ),
           TextField(
-            controller: contrasena,
+            controller: _passwordcontroller,
             enableInteractiveSelection: true,
             obscureText: true,
             decoration: InputDecoration(
@@ -166,10 +177,11 @@ class _pagusuarioState extends State<pagusuario> {
                 FlatButton(
                   hoverColor: Colors.amber[900],
                   color: Colors.amber[900],
-                  onPressed: () {
-                    saveUsuario();
-                    Navigator.of(context).pop();
-                  },
+                  onPressed: signUp,
+                  // () {
+                  //   saveUsuario();
+                  //   Navigator.of(context).pop();
+                  // },
                   child: const Text(
                     'Registrarse',
                     style: TextStyle(
@@ -195,24 +207,44 @@ class _pagusuarioState extends State<pagusuario> {
           ),
         ],
       ),
-    );
+    ),);
   }
 
-  void saveUsuario() async {
-    final user = {
-      "nombre": nombre.text,
-      "direccion": direccion.text,
-      "telefono": telefono.text,
-      "email": correo.text,
-      "contrasena": contrasena.text,
-      "id_rol": idrol.text
-    };
-    await http.post(url, headers: headers, body: jsonEncode(user));
-    nombre.clear();
-    direccion.clear();
-    telefono.clear();
-    correo.clear();
-    contrasena.clear();
-    idrol.clear();
-  }
+  // void saveUsuario() async {
+  //   final user = {
+  //     "nombre": nombre.text,
+  //     "direccion": direccion.text,
+  //     "telefono": telefono.text,
+  //     "email": correo.text,
+  //     "contrasena": contrasena.text,
+  //     "id_rol": idrol.text
+  //   };
+  //   await http.post(url, headers: headers, body: jsonEncode(user));
+  //   nombre.clear();
+  //   direccion.clear();
+  //   telefono.clear();
+  //   correo.clear();
+  //   contrasena.clear();
+  //   idrol.clear();
+  // }
+  Future signUp() async {
+     final isValid = formKey.currentState!.validate();
+  if (!isValid) return;
+    // showDialog(
+    //   context: context,
+    //   barrierDismissible: false,
+    //   builder: (context) => const Center(child: CircularProgressIndicator.adaptive())
+    // );
+    try{
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  email: _emailcontroller.text.trim(), 
+  password: _passwordcontroller.text.trim(),
+    );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Utils.ShowSnackBar(e.message);
+    }
+    //navigator.of(context) not working!
+    // navigatorKey.currentState!.popUntil((route))=> route;
+  }  
 }

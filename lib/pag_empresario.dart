@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types

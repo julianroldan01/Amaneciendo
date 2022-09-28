@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pag_empresario.dart';
+import 'package:flutter_application_1/Login.dart';
 import 'pag_usuario.dart';
 
 // ignore: camel_case_types
 class usuario extends StatefulWidget {
-  const usuario({super.key});
+  final Function() onClickedSignIn;
+  const usuario({Key? key, required this.onClickedSignIn}):super(key: key);
 
   @override
   State<usuario> createState() => _usuarioState();
@@ -33,7 +36,7 @@ class _usuarioState extends State<usuario> with SingleTickerProviderStateMixin {
         Container(
           margin: const EdgeInsets.only(top: 15.0, right: 45.0),
           child: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: widget.onClickedSignIn,
             icon: const Icon(Icons.arrow_circle_left_outlined),
             color: Colors.white,
             iconSize: 48,

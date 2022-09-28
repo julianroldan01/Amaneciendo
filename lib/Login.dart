@@ -1,19 +1,20 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/nose.dart';
-import 'package:flutter_application_1/header_register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/Utils.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+
+  final VoidCallback onClickedSignUp;
+  const Login({Key? key, required this.onClickedSignUp}):super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _passwordcontroller = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
   // FirebaseAuth auth = FirebaseAuth.instance;
   late String _email;
   late String _password;
@@ -28,13 +29,14 @@ class _LoginState extends State<Login> {
             shape: BoxShape.rectangle,
             color: Colors.white,
             image: DecorationImage(
-                fit: BoxFit.fill, image: AssetImage(pathImage))));
+                fit: BoxFit.fill, image: AssetImage(pathImage),),),);
 
     final margin = Container(
       margin: const EdgeInsets.only(top: 300.0),
     );
     final columna = Column(mainAxisAlignment: MainAxisAlignment.center);
-    return Container(
+    return Form( key: formKey,
+    child: Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
             image: AssetImage('images/login.png'), fit: BoxFit.fill),
@@ -111,12 +113,7 @@ class _LoginState extends State<Login> {
                 child: FlatButton(
                   hoverColor: Colors.amber[900],
                   color: Colors.amber[900],
-                  onPressed: () {
-                    // ignore: non_constant_identifier_names
-                    final route =
-                        MaterialPageRoute(builder: (context) => const nose());
-                    Navigator.push(context, route);
-                  },
+                  onPressed: signIn,
                   child: const Text(
                     'Ingresar',
                     style: TextStyle(
@@ -145,11 +142,7 @@ class _LoginState extends State<Login> {
                       Row(
                         children: <Widget>[
                           FlatButton(
-                            onPressed: () {
-                              final route = MaterialPageRoute(
-                                  builder: (context) => const usuario());
-                              Navigator.push(context, route);
-                            },
+                            onPressed: widget.onClickedSignUp,
                             color: Colors.amber[900],
                             textColor: Colors.white,
                             child: const Text('Registrar'),
@@ -170,6 +163,25 @@ class _LoginState extends State<Login> {
                       child: const Text('Olvide mi contraseña'))),
             ],
           )),
+    ),
     );
+  }
+    Future signIn() async{
+       final isValid = formKey.currentState!.validate();
+  if (!isValid) return;
+    // showDialog(
+    //   context: context,
+    //   barrierDismissible: false,
+    //   builder: (context) => const Center(child: CircularProgressIndicator.adaptive())
+    // );
+    try{
+await FirebaseAuth.instance.signInWithEmailAndPassword(
+  email: _emailcontroller.text.trim(), 
+  password: _passwordcontroller.text.trim(),
+    );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Utils.ShowSnackBar(e.message);
+    }
   }
 }
