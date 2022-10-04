@@ -1,10 +1,12 @@
 // ignore_for_file: deprecated_member_use
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/usuario_cliente.dart';
 import 'package:flutter_application_1/nosemaps/mapsample.dart';
+import 'Login.dart';
 import 'descripcion.dart';
 import 'nosemaps/norte.dart';
+import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class nose extends StatefulWidget {
   const nose({super.key});
@@ -184,24 +186,38 @@ class _noseState extends State<nose> {
         )),
       ],
     );
-    return Scaffold(
+    return BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is UnAuthenticated) {
+              // Navigate to the sign in screen when the user Signs Out
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => Login()),
+                (route) => false,
+              );
+            }
+          },
+     child: Scaffold(
           appBar: AppBar(centerTitle: true,title: const Text("ZONAS", style: TextStyle(color:Colors.white)),
           backgroundColor: Color(0xFFFFAE00),
           actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
             tooltip: 'Login',
-            onPressed: ()=> FirebaseAuth.instance.signOut(),),
+            onPressed: () {
+                  // Signing out the user
+                  context.read<AuthBloc>().add(SignOutRequested());
+                },),
       ],),
     body: ListView(
-      children: <Widget>[
-        Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[ 
-              iconBar, iconBar2]),
-      ],
+        children: <Widget>[
+          Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[ 
+                iconBar, iconBar2]),
+        ],
+      ),
     ));
   }
 }

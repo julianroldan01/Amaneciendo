@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/nose.dart';
 import 'package:flutter_application_1/pag_empresario.dart';
 import 'package:flutter_application_1/Login.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
 import 'pag_usuario.dart';
 
 // ignore: camel_case_types
 class usuario extends StatefulWidget {
-  final Function() onClickedSignIn;
-  const usuario({Key? key, required this.onClickedSignIn}):super(key: key);
+   const usuario({super.key});
 
   @override
   State<usuario> createState() => _usuarioState();
@@ -36,7 +38,15 @@ class _usuarioState extends State<usuario> with SingleTickerProviderStateMixin {
         Container(
           margin: const EdgeInsets.only(top: 15.0, right: 45.0),
           child: IconButton(
-            onPressed: widget.onClickedSignIn,
+            onPressed: () {
+              final route = MaterialPageRoute(
+                builder: (context) => Stack(
+                      children: <Widget>[
+                        Stack(children: <Widget>[Login()]),
+                      ],
+                    ));
+                    Navigator.push(context, route);
+                    },
             icon: const Icon(Icons.arrow_circle_left_outlined),
             color: Colors.white,
             iconSize: 48,
@@ -59,7 +69,7 @@ class _usuarioState extends State<usuario> with SingleTickerProviderStateMixin {
       ],
     );
     return Scaffold(
-      body: SingleChildScrollView(
+     body: SingleChildScrollView(
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(

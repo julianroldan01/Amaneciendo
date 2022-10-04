@@ -4,15 +4,15 @@
 
 import 'dart:convert';
 
-List<user> userFromJson(String str) =>
-    List<user>.from(json.decode(str).map((x) => user.fromJson(x)));
+List<Users> UsersFromJson(String str) =>
+    List<Users>.from(json.decode(str).map((x) => Users.fromJson(x)));
 
-String welcomeToJson(List<user> data) =>
+String UsersToJson(List<Users> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 // ignore: camel_case_types
-class user {
-  user({
+class Users {
+  Users({
     required this.id,
     required this.nombre,
     required this.direccion,
@@ -30,7 +30,7 @@ class user {
   String telefono;
   int idRol;
 
-  factory user.fromJson(Map<String, dynamic> json) => user(
+  factory Users.fromJson(Map<String, dynamic> json) => Users(
         id: json["id"],
         nombre: json["nombre"],
         direccion: json["direccion"],
