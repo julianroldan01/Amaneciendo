@@ -20,7 +20,7 @@ class cervezanacional extends StatefulWidget {
 
 // ignore: camel_case_types
 class _cervezanacionalState extends State<cervezanacional> {
-  final url = Uri.parse("http://192.168.1.108:4000/api/carta/1");
+  final url = Uri.parse("http://192.168.1.105:4000/api/carta/1");
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
   late Future<List<Carta>> cartita;
   final TextEditingController producto = TextEditingController();

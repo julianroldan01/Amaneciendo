@@ -3,6 +3,12 @@ part of 'auth_bloc.dart';
 @immutable
 abstract class AuthState extends Equatable{}
 class Loading extends AuthState {
+// final Map<String,dynamic> decodeResp = json.decode() ;
+// if (decodeResp.containsKey('tokenFirebase')){
+//   return null;
+// }else {
+//   return decodeResp['error']['message'];
+// }
   @override
   List<Object?> get props => [];
 }
@@ -28,6 +34,7 @@ class AuthError extends AuthState {
   List<Object?> get props => [error];
 }
 
+
 //   final bool existUser;
 //   final FirebaseAuth? user;
 
@@ -44,4 +51,4 @@ class AuthError extends AuthState {
 //   final FirebaseAuth newUser;
 //   const UserSetState(this.newUser)
 //   :super(existUser: true, user: newUser);
-// }
+// }  
