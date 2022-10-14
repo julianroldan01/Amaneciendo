@@ -1,11 +1,10 @@
 import 'package:flutter_application_1/Utils.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
+import 'package:flutter_application_1/empresario/home.dart';
 import 'package:flutter_application_1/header_register.dart';
-import 'package:flutter_application_1/models/user.dart';
-import 'package:flutter_application_1/nose.dart';
+import 'package:flutter_application_1/cliente/nose.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -72,7 +71,7 @@ class _LoginState extends State<Login> {
                 if (state is Authenticated) {
                   // Navigating to the dashboard screen if the user is authenticated
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const nose()));
+                      MaterialPageRoute(builder: (context) => const HomePage()));
                 }
                 if (state is AuthError) {
                   // Showing the error message if the user has entered invalid credentials

@@ -8,6 +8,8 @@ environment:
 
 
 dependencies:
+  # authentication_repository:
+  #   path: packages/authentication_repository
   bloc: ^8.0.0
   flutter:
     sdk: flutter
@@ -25,7 +27,9 @@ dependencies:
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
   formz: ^0.4.1
-  
+  firebase_messaging: ^13.1.0
+  very_good_analysis: ^3.0.2
+  flutter_secure_storage: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +67,15 @@ flutter:
     - images/aguila.png
     - images/poker.png
     - images/costeña.png
+    - images/corona.png
+    - images/licor1.png
+    - images/aguar.png
+    - images/vino.png
+    - images/smirnoff.png
+    - images/redbull.png
+    - images/malboro.png
+    - images/mechera.png
+    - images/noimage.png
 
 
   

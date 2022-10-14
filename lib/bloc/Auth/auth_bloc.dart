@@ -1,14 +1,10 @@
-import 'dart:convert';
-
+import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_1/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter_application_1/repository/authentication_repository.dart';
+
+
 
 part 'auth_event.dart';
 part 'auth_state.dart';

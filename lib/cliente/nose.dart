@@ -2,9 +2,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/nosemaps/mapsample.dart';
-import 'Login.dart';
+import '../Login.dart';
 import 'descripcion.dart';
-import 'nosemaps/norte.dart';
+import '../nosemaps/norte.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,7 +81,7 @@ class _noseState extends State<nose> {
                 builder: (context) => Stack(
                       children: <Widget>[
                         contenedor,
-                        Stack(children: <Widget>[MapSample()]),
+                        Stack(children: <Widget>[nort()]),
                       ],
                     ));
             Navigator.push(context, route);

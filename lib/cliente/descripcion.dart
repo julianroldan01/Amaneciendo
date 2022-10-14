@@ -1,13 +1,12 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/categorias/cerveza_nacional.dart';
-import 'package:flutter_application_1/categorias/cerveza_importada.dart';
-import 'package:flutter_application_1/categorias/licores_nacionales.dart';
-import 'package:flutter_application_1/categorias/licores_importados.dart';
-import 'package:flutter_application_1/categorias/energizantes.dart';
-import 'package:flutter_application_1/categorias/variados.dart';
+import 'package:flutter_application_1/cliente/categorias_clientes/cerveza_nacional.dart';
+import 'package:flutter_application_1/cliente/categorias_clientes/cerveza_importada.dart';
+import 'package:flutter_application_1/cliente/categorias_clientes/licores_nacionales.dart';
+import 'package:flutter_application_1/cliente/categorias_clientes/licores_importados.dart';
+import 'package:flutter_application_1/cliente/categorias_clientes/energizantes.dart';
+import 'package:flutter_application_1/cliente/categorias_clientes/variados.dart';
 
 // ignore: must_be_immutable
 class DescriptionPlace extends StatelessWidget {

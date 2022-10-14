@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../Secure_Storage.dart';
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
@@ -32,7 +33,7 @@ class AuthRepository {
       if (futureTokenFirebase != null){
         futureTokenFirebase.then((result) {
           String tokenFirebase =result;
-          print(tokenFirebase);
+          SecureStorage.setToken(tokenFirebase);
         });
       }
       

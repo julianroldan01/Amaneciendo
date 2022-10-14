@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_application_1/nose.dart';
+import 'package:flutter_application_1/cliente/nose.dart';
 import 'package:flutter_application_1/Utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

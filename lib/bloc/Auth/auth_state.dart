@@ -3,12 +3,7 @@ part of 'auth_bloc.dart';
 @immutable
 abstract class AuthState extends Equatable{}
 class Loading extends AuthState {
-// final Map<String,dynamic> decodeResp = json.decode() ;
-// if (decodeResp.containsKey('tokenFirebase')){
-//   return null;
-// }else {
-//   return decodeResp['error']['message'];
-// }
+
   @override
   List<Object?> get props => [];
 }
@@ -17,6 +12,7 @@ class Loading extends AuthState {
 class Authenticated extends AuthState {
   @override
   List<Object?> get props => [];
+
 }
 
 // This is the initial state of the bloc. When the user is not authenticated the state is changed to Unauthenticated.

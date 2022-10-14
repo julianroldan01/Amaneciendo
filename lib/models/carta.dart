@@ -12,7 +12,6 @@ String cartaToJson(List<Carta> data) =>
 
 class Carta {
   Carta({
-    required this.idCarta,
     required this.imagen,
     required this.producto,
     required this.volumen,
@@ -20,7 +19,6 @@ class Carta {
     required this.idtipo
   });
 
-  int idCarta;
   String imagen;
   String producto;
   String volumen;
@@ -28,20 +26,18 @@ class Carta {
   int idtipo;
 
   factory Carta.fromJson(Map<String, dynamic> json) => Carta(
-        idCarta: json["id_carta"],
-        imagen: json["imagen"],
-        producto: json["producto"],
-        volumen: json["volumen"],
-        valor: json["valor"],
-        idtipo: json["id_tipo"]
-      );
+    imagen: json["imagen"] as String,
+    producto: json["producto"] as String,
+    volumen: json["volumen"] as String,
+    valor: json["valor"] as int,
+    idtipo: json["id_tipo"] as int
+  );
 
   Map<String, dynamic> toJson() => {
-        "id_carta": idCarta,
-        "imagen": imagen,
-        "producto": producto,
-        "volumen": volumen,
-        "valor": valor,
-        "id_tipo": idtipo
-      };
+    "imagen": imagen,
+    "producto": producto,
+    "volumen": volumen,
+    "valor": valor,
+    "id_tipo": idtipo
+  };
 }
