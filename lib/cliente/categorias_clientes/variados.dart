@@ -243,7 +243,7 @@ class variadosState extends State<variados> {
                   ),
                 ]
               ),
-              const Products(type: 6),
+              Products(type: 6),
             ],
           ),
         ),

@@ -1,42 +1,24 @@
-// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import '../../cliente/categorias_clientes/cerveza_importada.dart';
-import '../../cliente/categorias_clientes/energizantes.dart';
-import '../../cliente/categorias_clientes/licores_nacionales.dart';
-import '../../cliente/categorias_clientes/cerveza_nacional.dart';
-import '../../cliente/categorias_clientes/variados.dart';
-import '../../components/Products.dart';
+import 'package:flutter_application_1/empresario/categorias_empresario/cerveza_importada.dart';
+import 'package:flutter_application_1/empresario/categorias_empresario/cerveza_nacional.dart';
+import 'package:flutter_application_1/empresario/categorias_empresario/energizantes.dart';
+import 'package:flutter_application_1/empresario/categorias_empresario/licores_importados.dart';
+import 'package:flutter_application_1/empresario/categorias_empresario/licores_nacionales.dart';
+import 'package:flutter_application_1/empresario/categorias_empresario/variados.dart';
 
 // ignore: camel_case_types
-class licoresimportados extends StatefulWidget {
-  const licoresimportados({super.key});
+class category extends StatefulWidget {
+  const category({super.key});
 
   @override
-  State<licoresimportados> createState() => licoresimportadosState();
+  State<category> createState() => _categoryState();
 }
 
 // ignore: camel_case_types
-class licoresimportadosState extends State<licoresimportados> {
-  final GlobalKey<ScaffoldState> _scaffoldkEy = GlobalKey<ScaffoldState>();
-  final picker = ImagePicker();
-
+class _categoryState extends State<category> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(fit: BoxFit.fill, image: AssetImage("images/fondo.png")),
-      ),
-      child: Scaffold(
-        key: _scaffoldkEy,
-        drawer: Drawer(
-          width: 420.0,
-          child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('images/fondo.png'), fit: BoxFit.fill),
-            ),
-            child: ListView(
+    return ListView(
              shrinkWrap: true,
             children:<Widget>[Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -52,16 +34,7 @@ class licoresimportadosState extends State<licoresimportados> {
                   ),
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                Title(
-                    color: Colors.white,
-                    child: const Text(
-                      'CATEGORIAS',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Acme",
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.w800),
-                    )),
+              
                 const Divider(height: 25.0),
                 FlatButton(
                   onPressed: () {
@@ -203,55 +176,7 @@ class licoresimportadosState extends State<licoresimportados> {
                 ),
               ],
             ),
-          ]),
-        ),),
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.arrow_circle_left_outlined),
-                      color: Colors.white,
-                      iconSize: 48,
-                    ),
-                  ),
-                  Container(
-                    child: const Text(
-                      "Licores Importados",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Acme",
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700
-                      ),
-                      textAlign: TextAlign.center
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: IconButton(
-                      icon: const Icon(Icons.apps_rounded),
-                      onPressed: () => _scaffoldkEy.currentState?.openDrawer(),
-                      color: Colors.white,
-                      iconSize: 60,
-                    ),
-                  ),
-                ]
-              ),
-              Products(type: 4),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-  @override
-  void initState() {
-    super.initState();
+          ]
+        );
   }
 }

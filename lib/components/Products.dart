@@ -1,26 +1,33 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: file_names
 
-import 'dart:convert';
-import 'dart:ffi';
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Apidio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:async';
-import '../../models/carta.dart';
-import 'package:http/http.dart' as http;
+
+import 'package:flutter_application_1/Apidio.dart';
 import 'package:flutter_application_1/models/carta.dart';
-import 'package:collection/collection.dart';
-import '../Secure_Storage.dart';
+
+import '../../models/carta.dart';
 
 // ignore: camel_case_types
 class Products extends StatefulWidget {
-  const Products({required this.type});
+  Products({
+    Key? key,
+    required this.type,
+  }) : super(key: key);
 
   final int type;
+  final _ProductsState _productsState = _ProductsState();
+  
+  callGetCarta() {
+    _productsState.refreshCartita();
+  }
 
   @override
-  State<Products> createState() => _ProductsState();
+  State<Products> createState() => _productsState;
 }
 
 // ignore: camel_case_types
@@ -28,6 +35,7 @@ class _ProductsState extends State<Products> {
   final Dio dio = Apidio.dioAuth();
   late Future<List<Carta>> cartita;
   final picker = ImagePicker();
+  final String host = dotenv.get("HOST");
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +53,7 @@ class _ProductsState extends State<Products> {
                       leading: SizedBox(
                           width: 50,
                           height: 100,
-                          child: Image.asset(snap.data![i].imagen)),
+                          child: Image.network("$host/${snap.data![i].imagen}")),
                       title: Text(snap.data![i].producto,
                           style: const TextStyle(
                               color: Colors.white,
@@ -87,11 +95,17 @@ class _ProductsState extends State<Products> {
   @override
   void initState() {
     super.initState();
-    cartita = getCarta(widget.type);
+    refreshCartita();
+  }
+
+  refreshCartita() {
+    setState(() {
+      cartita = getCarta(widget.type);
+    });
   }
 
   Future<List<Carta>> getCarta(int type) async {
-    final res = await dio.get("http://192.168.1.102:4000/api/carta/$type");
+    final res = await dio.get("$host/api/carta/$type");
     final lista = res.data;
     // List <Map<String, dynamic>> lista = List.from(jsonDecode(res.data));
     // final url = Uri.parse("http://192.168.1.103:4000/api/carta/$type");

@@ -1,30 +1,38 @@
-import 'dart:convert';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Apidio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'package:flutter_application_1/components/Products.dart';
+
+import 'package:flutter_application_1/Apidio.dart';
+
+import '../models/carta.dart';
 
 class AddProduct extends StatefulWidget {
-  const AddProduct({required this.type});
+  const AddProduct({
+    Key? key,
+    required this.type,
+    required this.parentFunction,
+  }) : super(key: key);
 
   final int type;
+  final Function parentFunction;
   @override
   State<AddProduct> createState() => _AddProductState();
 }
 
 class _AddProductState extends State<AddProduct> {
-  final contHeaders = {"Content-Type": "application/json;charset=UTF-8"};
   final TextEditingController producto = TextEditingController();
   final TextEditingController volumen = TextEditingController();
   final TextEditingController valor = TextEditingController();
-  final int idtipo = 1;
+  late Future<List<Carta>> cartita;
   final Dio dio = Apidio.dioAuth();
   final picker = ImagePicker();
-  late Future<File> _imagen = Future(() => File('images/noimagen.png'));
+  late File _imagen = File('images/noimagen.png');
+  final String host = dotenv.get("HOST");
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +66,7 @@ class _AddProductState extends State<AddProduct> {
                     height: 200.0,
                     width: 200.0,
                     color: Colors.orange[100],
-                    child: FutureBuilder<File>(
-                        future: _imagen,
-                        builder: (context, snap) {
-                          if (snap.hasData) return Image.file(snap.data!);
-                          if (snap.hasError)
-                            return const Text('No hay Imagen',
-                                textAlign: TextAlign.center);
-                          return const Text('No hay Imagen',
-                              textAlign: TextAlign.center);
-                        }),
+                    child: Image.file(_imagen, fit: BoxFit.cover),
                   ),
                 ),
                 FlatButton(
@@ -109,7 +108,7 @@ class _AddProductState extends State<AddProduct> {
     var imagen = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (imagen != null) {
-        _imagen = Future(() => File(imagen.path));
+        _imagen = File(imagen.path);
       } else {
         print('No selecciono una foto');
       }
@@ -117,24 +116,19 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void saveProducto() async {
-    // final res = await Uri.parse("http://192.168.1.102:4000/api/carta");
-    final product = {
+    String filename = _imagen.path.split("/").last;
+
+    FormData data = FormData.fromMap({
       "producto": producto.text,
       "volumen": volumen.text,
       "valor": valor.text,
-      "id_tipo": idtipo,
-      "imagen": _imagen.toString()
-    };
-    // await http.post(res, headers: headers, body: jsonEncode(product));
-  final response =  await dio.post("http://192.168.1.102:4000/api/carta",
-        options: Options(headers: contHeaders), data: jsonEncode(product));
+      "id_tipo": widget.type,
+      "imagen": await MultipartFile.fromFile(_imagen.path)
+    });
+    await dio.post("$host/api/carta", data: data);
     producto.clear();
     volumen.clear();
     valor.clear();
-    // if (response.statusCode == 200){
-    //   setState(() {
-        
-    //   });
-    // }
+    widget.parentFunction();
   }
 }

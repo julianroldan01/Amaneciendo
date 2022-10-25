@@ -244,7 +244,7 @@ class energizantesState extends State<energizantes> {
                   ),
                 ]
               ),
-              const Products(type: 5),
+              Products(type: 5),
             ],
           ),
         ),

@@ -7,6 +7,11 @@ import 'package:flutter_application_1/cliente/categorias_clientes/licores_nacion
 import 'package:flutter_application_1/cliente/categorias_clientes/licores_importados.dart';
 import 'package:flutter_application_1/cliente/categorias_clientes/energizantes.dart';
 import 'package:flutter_application_1/cliente/categorias_clientes/variados.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_application_1/models/user.dart';
+
+import '../Apidio.dart';
+import '../models/carta.dart';
 
 // ignore: must_be_immutable
 class DescriptionPlace extends StatelessWidget {
@@ -25,7 +30,8 @@ class DescriptionPlace extends StatelessWidget {
       this.descripcion, this.hora, this.horario, this.direccion, this.barrio,
       {Key? key})
       : super(key: key);
-
+  final Dio dio = Apidio.dioAuth();
+  late Future<List<Carta>> cartita;
   @override
   Widget build(BuildContext context) {
     final starBorder =
@@ -468,5 +474,26 @@ class DescriptionPlace extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<List<Users>> getUser(int type) async {
+    final res = await dio.get("http://192.168.1.106:4000/api/registro");
+    final lista = res.data;
+    // List <Map<String, dynamic>> lista = List.from(jsonDecode(res.data));
+    // final url = Uri.parse("http://192.168.1.103:4000/api/carta/$type");
+    // final resp = await http.get(url);
+    // print(resp.body);
+    // final listap = List.from(jsonDecode(resp.body));
+
+    // Function eq = const ListEquality().equals;
+    // print('***');
+    // print(eq(lista, listap)); // => true
+
+    List<Users> cartita = [];
+    for (var element in lista) {
+      final Users user = Users.fromJson(element);
+      cartita.add(user);
+    }
+    return cartita;
   }
 }

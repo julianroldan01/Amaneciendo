@@ -26,6 +26,7 @@ class _empresarioState extends State<empresario> {
   final TextEditingController horafin = TextEditingController();
   final TextEditingController contrasena = TextEditingController();
   final TextEditingController diaatencion = TextEditingController();
+  final List<bool> _selections = List.generate(7, (_) => false);
   final TextEditingController numerodocumentocomprador =
       TextEditingController();
   final TextEditingController idrol = TextEditingController(text: "1");
@@ -219,91 +220,112 @@ class _empresarioState extends State<empresario> {
             const Padding(
               padding: EdgeInsets.all(8),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // ignore: prefer_const_literals_to_create_immutables
-              children: <Widget>[
-                const Text(
-                  "Seleccione los días de atención de su local: ",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Acme",
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w700),
-                ),
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("L", style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("M", style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("X", style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("J", style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("V", style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("S", style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      shape: const CircleBorder(),
-                      primary: const Color.fromARGB(30, 43, 42, 42)),
-                  child: const Text("D", style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   // ignore: prefer_const_literals_to_create_immutables
+            //   children: <Widget>[
+            //     const Text(
+            //       "Seleccione los días de atención de su local: ",
+            //       textAlign: TextAlign.left,
+            //       style: TextStyle(
+            //           color: Colors.white,
+            //           fontFamily: "Acme",
+            //           fontSize: 15.0,
+            //           fontWeight: FontWeight.w700),
+            //     ),
+            //   ],
+            // ),
+            // const Padding(
+            //   padding: EdgeInsets.all(8),
+            // ),
+            // Row(
+            //   mainAxisSize: MainAxisSize.min,
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: <Widget>[
+            //     ToggleButtons(
+            //       borderRadius: BorderRadius.circular(30),
+            //       borderWidth: 0,
+            //       onPressed: (int index) {
+            //         setState(() {
+            //           _selections[index] = !_selections[index];
+            //         });
+            //       },
+            //       isSelected: _selections,
+            //       children: const <Widget>[
+            //         Text('L'),
+            //         Text('M'),
+            //         Text('M'),
+            //         Text('J'),
+            //         Text('V'),
+            //         Text('S'),
+            //         Text('D'),
+            //       ],
+            //     ),
+
+                //   ElevatedButton(
+                //     onPressed: () {},
+                //     style: ElevatedButton.styleFrom(
+                //         textStyle: const TextStyle(fontSize: 20),
+                //         shape: const CircleBorder(),
+                //         primary: const Color.fromARGB(30, 43, 42, 42)),
+                //     child: const Text("L", style: TextStyle(color: Colors.white)),
+                //   ),
+                //   ElevatedButton(
+                //     onPressed: () {},
+                //     style: ElevatedButton.styleFrom(
+                //         textStyle: const TextStyle(fontSize: 20),
+                //         shape: const CircleBorder(),
+                //         primary: const Color.fromARGB(30, 43, 42, 42)),
+                //     child: const Text("M", style: TextStyle(color: Colors.white)),
+                //   ),
+                //   ElevatedButton(
+                //     onPressed: () {},
+                //     style: ElevatedButton.styleFrom(
+                //         textStyle: const TextStyle(fontSize: 20),
+                //         shape: const CircleBorder(),
+                //         primary: const Color.fromARGB(30, 43, 42, 42)),
+                //     child: const Text("X", style: TextStyle(color: Colors.white)),
+                //   ),
+                //   ElevatedButton(
+                //     onPressed: () {},
+                //     style: ElevatedButton.styleFrom(
+                //         textStyle: const TextStyle(fontSize: 20),
+                //         shape: const CircleBorder(),
+                //         primary: const Color.fromARGB(30, 43, 42, 42)),
+                //     child: const Text("J", style: TextStyle(color: Colors.white)),
+                //   ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     ElevatedButton(
+            //       onPressed: () {},
+            //       style: ElevatedButton.styleFrom(
+            //           textStyle: const TextStyle(fontSize: 20),
+            //           shape: const CircleBorder(),
+            //           primary: const Color.fromARGB(30, 43, 42, 42)),
+            //       child: const Text("V", style: TextStyle(color: Colors.white)),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: () {},
+            //       style: ElevatedButton.styleFrom(
+            //           textStyle: const TextStyle(fontSize: 20),
+            //           shape: const CircleBorder(),
+            //           primary: const Color.fromARGB(30, 43, 42, 42)),
+            //       child: const Text("S", style: TextStyle(color: Colors.white)),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: () {},
+            //       style: ElevatedButton.styleFrom(
+            //           textStyle: const TextStyle(fontSize: 20),
+            //           shape: const CircleBorder(),
+            //           primary: const Color.fromARGB(30, 43, 42, 42)),
+            //       child: const Text("D", style: TextStyle(color: Colors.white)),
+            //     ),
+            //   ],
+            // ),
             const Padding(
               padding: EdgeInsets.all(8),
             ),

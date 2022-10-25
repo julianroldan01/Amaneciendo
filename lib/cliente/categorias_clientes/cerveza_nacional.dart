@@ -244,7 +244,7 @@ class _cervezanacionalState extends State<cervezanacional> {
                   ),
                 ]
               ),
-              const Products(type: 1),
+              Products(type: 1),
             ],
           ),
         ),

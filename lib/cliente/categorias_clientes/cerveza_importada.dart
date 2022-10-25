@@ -243,7 +243,7 @@ class cervezaimportadaState extends State<cervezaimportada> {
                   ),
                 ]
               ),
-              const Products(type: 2),
+              Products(type: 2),
             ],
           ),
         ),

@@ -3,13 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Utils.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
-import 'package:flutter_application_1/models/user.dart';
-import 'package:flutter_application_1/cliente/nose.dart';
-import 'package:flutter_application_1/pag_usuario.dart';
 import 'package:flutter_application_1/repository/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'Login.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 Future main() async {
+  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
