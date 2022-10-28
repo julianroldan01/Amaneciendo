@@ -70,14 +70,15 @@ class _AddProductState extends State<AddProduct> {
                     child: Image.file(_imagen, fit: BoxFit.cover),
                   ),
                 ),
-                FlatButton(
+                ElevatedButton(
                   onPressed: _getImagen,
-                  color: const Color.fromARGB(102, 43, 42, 42),
-                  textColor: Colors.white,
+                   style: ElevatedButton.styleFrom(
+                  shadowColor: const Color.fromARGB(102, 43, 42, 42)),
+                  
                   child: Row(
                     children: const <Widget>[
-                      Icon(Icons.download_rounded),
-                      Text('Cargar imagen')
+                      Icon(Icons.download_rounded, color: Colors.white),
+                      Text('Cargar imagen',style: TextStyle(color: Colors.white),)
                     ],
                   ),
                 ),
@@ -110,8 +111,6 @@ class _AddProductState extends State<AddProduct> {
     setState(() {
       if (imagen != null) {
         _imagen = File(imagen.path);
-      } else {
-        print('No selecciono una foto');
       }
     });
   }

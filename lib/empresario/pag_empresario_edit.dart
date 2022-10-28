@@ -74,31 +74,30 @@ class _empresarioState extends State<empresario> {
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
           children: <Widget>[
-          Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.arrow_circle_left_outlined),
-                      color: Colors.white,
-                      iconSize: 48,
-                    ),
-                    const Padding(
-                  padding: EdgeInsets.all(5),
-                ),
-                    Row(
-                      children: const <Widget>[
-                        Center(
-                          child: Text('INFORMACIÓN',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "Acme",
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.w700),
-                              textAlign: TextAlign.center),
-                        )
-                      ],
-                    ),]),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+              IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.arrow_circle_left_outlined),
+                color: Colors.white,
+                iconSize: 48,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(5),
+              ),
+              Row(
+                children: const <Widget>[
+                  Center(
+                    child: Text('INFORMACIÓN',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Acme",
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w700),
+                        textAlign: TextAlign.center),
+                  )
+                ],
+              ),
+            ]),
             TextField(
               controller: nitempresa,
               enableInteractiveSelection: true,
@@ -239,7 +238,6 @@ class _empresarioState extends State<empresario> {
             const Padding(
               padding: EdgeInsets.all(8),
             ),
-            
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const <Widget>[
@@ -269,12 +267,16 @@ class _empresarioState extends State<empresario> {
                       fontSize: 15.0,
                       fontWeight: FontWeight.w700),
                 ),
-                FlatButton(
+                ElevatedButton(
                   onPressed: _show,
-                  color: const Color.fromARGB(255, 248, 247, 247),
-                  textColor: const Color.fromARGB(255, 233, 115, 11),
+                  style:
+                      ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                   child: Text(
-                      _selectedTimeI != null ? _selectedTimeI! : '00:00 PM'),
+                    _selectedTimeI != null ? _selectedTimeI! : '00:00 PM',
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const Text(
                   'A',
@@ -285,7 +287,7 @@ class _empresarioState extends State<empresario> {
                       fontSize: 15.0,
                       fontWeight: FontWeight.w700),
                 ),
-                FlatButton(
+                ElevatedButton(
                   onPressed: _show2,
                   // async {
                   //   TimeOfDay? newTime = await showTimePicker(
@@ -296,10 +298,14 @@ class _empresarioState extends State<empresario> {
                   //     });
                   //   }
                   // },
-                  color: const Color.fromARGB(255, 248, 247, 247),
-                  textColor: const Color.fromARGB(255, 233, 115, 11),
+                  style:
+                      ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                   child: Text(
-                      _selectedTimeF != null ? _selectedTimeF! : '00:00 AM'),
+                    _selectedTimeF != null ? _selectedTimeF! : '00:00 AM',
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                   // '${time2!.hour.toString()}: ${time2!.minute.toString()}'),
                 ),
               ],
@@ -329,27 +335,33 @@ class _empresarioState extends State<empresario> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {},
-                  color: const Color.fromARGB(102, 43, 42, 42),
-                  textColor: Colors.white,
+                  style:
+                      ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
-                      Icon(Icons.download_rounded),
-                      Text('RUT*')
+                      Icon(Icons.download_rounded,color: Colors.white),
+                      Text(
+                        'RUT*',
+                        style: TextStyle(color: Colors.white),
+                      )
                     ],
                   ),
                 ),
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {},
-                  color: const Color.fromARGB(102, 43, 42, 42),
-                  textColor: Colors.white,
+                  style:
+                      ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
-                      Icon(Icons.download_rounded),
-                      Text('Cámara y comercio*')
+                      Icon(Icons.download_rounded, color: Colors.white),
+                      Text(
+                        'Cámara y comercio*',
+                        style: TextStyle(color: Colors.white),
+                      )
                     ],
                   ),
                 ),
@@ -358,15 +370,16 @@ class _empresarioState extends State<empresario> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {},
-                  color: const Color.fromARGB(102, 43, 42, 42),
-                  textColor: Colors.white,
+                  style:
+                      ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
-                      Icon(Icons.download_rounded),
-                      Text('Cédula de ciudadanía*')
+                      Icon(Icons.download_rounded, color: Colors.white),
+                      Text('Cédula de ciudadanía*',
+                          style: TextStyle(color: Colors.white))
                     ],
                   ),
                 ),

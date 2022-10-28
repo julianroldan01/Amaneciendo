@@ -23,7 +23,8 @@ class Apidio {
     final res = await dio.get("$host/api/carta/$type");
     List<Carta> cartas = [];
     for(var el in res.data) {
-      final Carta cart = Carta.fromJson(el); 
+      final Carta cart = Carta.fromJson(el);
+      cart.imagen = "$host/${cart.imagen}";
       cartas.add(cart);
     }
     return cartas;
@@ -41,11 +42,6 @@ class Apidio {
 
   static Dio dioAuth() {
     Dio dio = Dio();
-    /*var token = await SecureStorage.getToken();
-    if (token != null) {
-      print(token);
-      dio.options.headers[HttpHeaders.authorizationHeader] = "Bearer $token";
-    }*/
     return dio;
   }
 }

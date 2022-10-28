@@ -2,6 +2,7 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
@@ -91,10 +92,18 @@ class _ProductsState extends State<Products> {
                                 ));
                       },
                       leading: SizedBox(
-                          width: 50,
-                          height: 100,
-                          child:
-                              Image.network("$host/${snap.data![i].imagen}")),
+                        width: 50,
+                        height: 100,
+                        child: CachedNetworkImage(
+                          imageUrl: snap.data![i].imagen,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
                       title: Text(snap.data![i].producto,
                           style: const TextStyle(
                               color: Colors.white,

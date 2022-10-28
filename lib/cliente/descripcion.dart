@@ -137,16 +137,17 @@ class DescriptionPlace extends StatelessWidget {
     final buttondescription = Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        FlatButton(
+        ElevatedButton(
           onPressed: () {},
-          color: Colors.amber[900],
-          textColor: Colors.white,
-          child: const Text('Como llegar'),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.amber[900],
+          ),
+          child:
+              const Text('Como llegar', style: TextStyle(color: Colors.white)),
         ),
-        FlatButton(
+        ElevatedButton(
           onPressed: () {},
-          color: Colors.amber[900],
-          textColor: Colors.white,
+          style: ElevatedButton.styleFrom(primary: Colors.transparent),
           child: const Text('Métodos de pago'),
         ),
       ],
@@ -201,140 +202,160 @@ class DescriptionPlace extends StatelessWidget {
                             fontWeight: FontWeight.w800),
                       )),
                   const Divider(height: 25.0),
-                  FlatButton(
-                    onPressed: () {
-                      final route = MaterialPageRoute(
-                          builder: (context) => const cervezanacional());
-                      Navigator.push(context, route);
-                    },
-                    color: Colors.transparent,
-                    textColor: Colors.white,
-                    child: const ListTile(
-                        title: Text('Cerveza Nacional',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left),
-                        trailing: Icon(Icons.arrow_forward_ios_outlined,
-                            color: Colors.white, size: 60)),
-                  ),
+                  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  final route = MaterialPageRoute(
+                      builder: (context) => const cervezanacional());
+                  Navigator.push(context, route);
+                },
+                child: const Text(
+                  "Cerveza Nacional",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Acme",
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios_outlined,
+                  color: Colors.white, size: 60)
+            ],
+          ),
                   Container(
                     margin: const EdgeInsets.only(right: 20.0, left: 20.0),
                     child: const Divider(thickness: 1.0, color: Colors.white),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      final route = MaterialPageRoute(
-                          builder: (context) => const cervezaimportada());
-                      Navigator.push(context, route);
-                    },
-                    color: Colors.transparent,
-                    textColor: Colors.white,
-                    child: const ListTile(
-                        title: Text('Cerveza Importada',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left),
-                        trailing: Icon(Icons.arrow_forward_ios_outlined,
-                            color: Colors.white, size: 60)),
-                  ),
+                  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  final route = MaterialPageRoute(
+                      builder: (context) => const cervezaimportada());
+                  Navigator.push(context, route);
+                },
+                child: const Text(
+                  "Cerveza Importada",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Acme",
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios_outlined,
+                  color: Colors.white, size: 60)
+            ],
+          ),
                   Container(
                     margin: const EdgeInsets.only(right: 20.0, left: 20.0),
                     child: const Divider(thickness: 1.0, color: Colors.white),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      final route = MaterialPageRoute(
-                          builder: (context) => const licoresnacionales());
-                      Navigator.push(context, route);
-                    },
-                    color: Colors.transparent,
-                    textColor: Colors.white,
-                    child: const ListTile(
-                        title: Text('Licores Nacionales',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left),
-                        trailing: Icon(Icons.arrow_forward_ios_outlined,
-                            color: Colors.white, size: 60)),
-                  ),
+                  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  final route = MaterialPageRoute(
+                      builder: (context) => const licoresnacionales());
+                  Navigator.push(context, route);
+                },
+                child: const Text(
+                  "Licores Nacionales",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Acme",
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios_outlined,
+                  color: Colors.white, size: 60)
+            ],
+          ),
                   Container(
                     margin: const EdgeInsets.only(right: 20.0, left: 20.0),
                     child: const Divider(thickness: 1.0, color: Colors.white),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      final route = MaterialPageRoute(
-                          builder: (context) => const licoresimportados());
-                      Navigator.push(context, route);
-                    },
-                    color: Colors.transparent,
-                    textColor: Colors.white,
-                    child: const ListTile(
-                        title: Text('Licores Importados',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left),
-                        trailing: Icon(Icons.arrow_forward_ios_outlined,
-                            color: Colors.white, size: 60)),
-                  ),
+                  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  final route = MaterialPageRoute(
+                      builder: (context) => const licoresimportados());
+                  Navigator.push(context, route);
+                },
+                child: const Text(
+                  "Licores Importados",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Acme",
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios_outlined,
+                  color: Colors.white, size: 60)
+            ],
+          ),
                   Container(
                     margin: const EdgeInsets.only(right: 20.0, left: 20.0),
                     child: const Divider(thickness: 1.0, color: Colors.white),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      final route = MaterialPageRoute(
-                          builder: (context) => const energizantes());
-                      Navigator.push(context, route);
-                    },
-                    color: Colors.transparent,
-                    textColor: Colors.white,
-                    child: const ListTile(
-                        title: Text('Energizantes',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left),
-                        trailing: Icon(Icons.arrow_forward_ios_outlined,
-                            color: Colors.white, size: 60)),
-                  ),
+                  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  final route = MaterialPageRoute(
+                      builder: (context) => const energizantes());
+                  Navigator.push(context, route);
+                },
+                child: const Text(
+                  "Energizantes",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Acme",
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(5)),
+              const Icon(Icons.arrow_forward_ios_outlined,
+                  color: Colors.white, size: 60)
+            ],
+          ),
                   Container(
                     margin: const EdgeInsets.only(right: 20.0, left: 20.0),
                     child: const Divider(thickness: 1.0, color: Colors.white),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      final route = MaterialPageRoute(
-                          builder: (context) => const variados());
-                      Navigator.push(context, route);
-                    },
-                    color: Colors.transparent,
-                    textColor: Colors.white,
-                    child: const ListTile(
-                        title: Text('Variados',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left),
-                        trailing: Icon(Icons.arrow_forward_ios_outlined,
-                            color: Colors.white, size: 60)),
-                  ),
+                 Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  final route =
+                      MaterialPageRoute(builder: (context) => const variados());
+                  Navigator.push(context, route);
+                },
+                child: const Text(
+                  "Variados",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Acme",
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(6)),
+              const Icon(Icons.arrow_forward_ios_outlined,
+                  color: Colors.white, size: 60)
+            ],
+          ),
                   Container(
                     margin: const EdgeInsets.only(right: 20.0, left: 20.0),
                     child: const Divider(thickness: 1.0, color: Colors.white),
@@ -479,16 +500,6 @@ class DescriptionPlace extends StatelessWidget {
   Future<List<Users>> getUser(int type) async {
     final res = await dio.get("http://192.168.1.106:4000/api/registro");
     final lista = res.data;
-    // List <Map<String, dynamic>> lista = List.from(jsonDecode(res.data));
-    // final url = Uri.parse("http://192.168.1.103:4000/api/carta/$type");
-    // final resp = await http.get(url);
-    // print(resp.body);
-    // final listap = List.from(jsonDecode(resp.body));
-
-    // Function eq = const ListEquality().equals;
-    // print('***');
-    // print(eq(lista, listap)); // => true
-
     List<Users> cartita = [];
     for (var element in lista) {
       final Users user = Users.fromJson(element);

@@ -230,9 +230,9 @@ class _pagusuarioState extends State<pagusuario> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        FlatButton(
-                          hoverColor: Colors.amber[900],
-                          color: Colors.amber[900],
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                  shadowColor: Colors.amber[900]),
                           onPressed: () {
                             signUp();
                             _createAccountWithEmailAndPassword(context);
@@ -253,13 +253,13 @@ class _pagusuarioState extends State<pagusuario> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             iconBar,
-                            FlatButton(
+                            ElevatedButton(
                               onPressed: () {
                                 _authenticateWithGoogle(context);
                               },
-                              color: const Color.fromARGB(102, 43, 42, 42),
-                              textColor: Colors.white,
-                              child: const Text('Registrarse con Google'),
+                               style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent),                   
+                              child: const Text('Registrarse con Google', style: TextStyle(color: Colors.white),),
                             ),
                           ],
                         ),

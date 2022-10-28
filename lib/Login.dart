@@ -1,10 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
+import 'package:flutter_application_1/cliente/nose.dart';
 import 'package:flutter_application_1/empresario/home.dart';
 import 'package:flutter_application_1/header_register.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -28,6 +28,7 @@ class _LoginState extends State<Login> {
       );
     }
   }
+
 //
   void _authenticateWithGoogle(context) {
     BlocProvider.of<AuthBloc>(context).add(
@@ -68,8 +69,10 @@ class _LoginState extends State<Login> {
               listener: (context, state) {
                 if (state is Authenticated) {
                   // Navigating to the dashboard screen if the user is authenticated
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const HomePage()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePage()));
                 }
                 if (state is AuthError) {
                   // Showing the error message if the user has entered invalid credentials
@@ -154,9 +157,9 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           width: double.infinity,
                           height: 50.0,
-                          child: FlatButton(
-                            hoverColor: Colors.amber[900],
-                            color: Colors.amber[900],
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.amber[900]),
                             onPressed: () {
                               _authenticateWithEmailAndPassword(context);
                             },
@@ -179,19 +182,21 @@ class _LoginState extends State<Login> {
                               children: <Widget>[
                                 Container(
                                   margin: const EdgeInsets.only(right: 40.0),
-                                  child: FlatButton(
+                                  child: ElevatedButton(
                                     onPressed: () {
                                       _authenticateWithGoogle(context);
                                     },
-                                    color:
-                                        const Color.fromARGB(102, 43, 42, 42),
-                                    textColor: Colors.white,
-                                    child: const Text('Acceder'),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.transparent),
+                                    child: const Text(
+                                      'Acceder',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    FlatButton(
+                                    ElevatedButton(
                                       onPressed: () {
                                         Navigator.pushReplacement(
                                           context,
@@ -200,9 +205,12 @@ class _LoginState extends State<Login> {
                                                   const usuario()),
                                         );
                                       },
-                                      color: Colors.amber[900],
-                                      textColor: Colors.white,
-                                      child: const Text('Registrar'),
+                                      style: ElevatedButton.styleFrom(
+                                          shadowColor: Colors.amber[900]),
+                                      child: const Text(
+                                        'Registrar',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -211,13 +219,11 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                         SizedBox(
-                            child: FlatButton(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0, vertical: 10.0),
-                                onPressed: () => {},
-                                color: Colors.transparent,
-                                textColor: Colors.white,
-                                child: const Text('Olvide mi contraseña'))),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: const Text("Olvide mi contraseña", style: TextStyle(color:Colors.white),),
+                          ),
+                        ),
                       ],
                     );
                   }
