@@ -12,14 +12,15 @@ import 'package:flutter_application_1/Apidio.dart';
 import '../models/carta.dart';
 
 class AddProduct extends StatefulWidget {
+  final int type;
+  final Function parentFunction;
+
   const AddProduct({
     Key? key,
     required this.type,
     required this.parentFunction,
   }) : super(key: key);
 
-  final int type;
-  final Function parentFunction;
   @override
   State<AddProduct> createState() => _AddProductState();
 }
@@ -29,7 +30,7 @@ class _AddProductState extends State<AddProduct> {
   final TextEditingController volumen = TextEditingController();
   final TextEditingController valor = TextEditingController();
   late Future<List<Carta>> cartita;
-  final Dio dio = Apidio.dioAuth();
+  final Apidio dio = Apidio();
   final picker = ImagePicker();
   late File _imagen = File('images/noimagen.png');
   final String host = dotenv.get("HOST");
@@ -116,8 +117,6 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void saveProducto() async {
-    String filename = _imagen.path.split("/").last;
-
     FormData data = FormData.fromMap({
       "producto": producto.text,
       "volumen": volumen.text,
@@ -125,7 +124,7 @@ class _AddProductState extends State<AddProduct> {
       "id_tipo": widget.type,
       "imagen": await MultipartFile.fromFile(_imagen.path)
     });
-    await dio.post("$host/api/carta", data: data);
+    await dio.addProduct(data);
     producto.clear();
     volumen.clear();
     valor.clear();

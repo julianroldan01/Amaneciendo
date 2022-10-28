@@ -1,10 +1,8 @@
-import 'package:flutter_application_1/Utils.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
 import 'package:flutter_application_1/empresario/home.dart';
 import 'package:flutter_application_1/header_register.dart';
-import 'package:flutter_application_1/cliente/nose.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 

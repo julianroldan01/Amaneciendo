@@ -19,7 +19,6 @@ class cervezaimportada extends StatefulWidget {
 
 // ignore: camel_case_types
 class cervezaimportadaState extends State<cervezaimportada> {
-  final GlobalKey<ScaffoldState> _scaffoldkEy = GlobalKey<ScaffoldState>();
   final Products productsChild = Products(type: 2);
   final picker = ImagePicker();
 
@@ -30,7 +29,6 @@ class cervezaimportadaState extends State<cervezaimportada> {
         image: DecorationImage(fit: BoxFit.fill, image: AssetImage("images/fondo.png")),
       ),
       child: Scaffold(
-        key: _scaffoldkEy,
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
           child: Column(

@@ -2,7 +2,6 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,21 +20,39 @@ class Products extends StatefulWidget {
 
   final int type;
   final _ProductsState _productsState = _ProductsState();
-  
+
   callGetCarta() {
     _productsState.refreshCartita();
   }
 
   @override
+  // ignore: no_logic_in_create_state
   State<Products> createState() => _productsState;
 }
 
 // ignore: camel_case_types
 class _ProductsState extends State<Products> {
-  final Dio dio = Apidio.dioAuth();
+  final Apidio apiDio = Apidio();
   late Future<List<Carta>> cartita;
   final picker = ImagePicker();
   final String host = dotenv.get("HOST");
+
+  @override
+  void initState() {
+    super.initState();
+    refreshCartita();
+  }
+
+  void deleteProducto(int idProducto) async {
+    await apiDio.deleteProductById(idProducto);
+    refreshCartita();
+  }
+
+  refreshCartita() {
+    setState(() {
+      cartita = apiDio.getAllCarta(widget.type);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +67,34 @@ class _ProductsState extends State<Products> {
                 return Column(
                   children: [
                     ListTile(
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: const Text(
+                                      "Estas seguro que quieres eliminar este producto?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        deleteProducto(snap.data![i].id_carta);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Si"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("No"),
+                                    )
+                                  ],
+                                ));
+                      },
                       leading: SizedBox(
                           width: 50,
                           height: 100,
-                          child: Image.network("$host/${snap.data![i].imagen}")),
+                          child:
+                              Image.network("$host/${snap.data![i].imagen}")),
                       title: Text(snap.data![i].producto,
                           style: const TextStyle(
                               color: Colors.white,
@@ -90,38 +131,5 @@ class _ProductsState extends State<Products> {
         return const CircularProgressIndicator();
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    refreshCartita();
-  }
-
-  refreshCartita() {
-    setState(() {
-      cartita = getCarta(widget.type);
-    });
-  }
-
-  Future<List<Carta>> getCarta(int type) async {
-    final res = await dio.get("$host/api/carta/$type");
-    final lista = res.data;
-    // List <Map<String, dynamic>> lista = List.from(jsonDecode(res.data));
-    // final url = Uri.parse("http://192.168.1.103:4000/api/carta/$type");
-    // final resp = await http.get(url);
-    // print(resp.body);
-    // final listap = List.from(jsonDecode(resp.body));
-
-    // Function eq = const ListEquality().equals;
-    // print('***');
-    // print(eq(lista, listap)); // => true
-
-    List<Carta> cartita = [];
-    for (var element in lista) {
-      final Carta cart = Carta.fromJson(element);
-      cartita.add(cart);
-    }
-    return cartita;
   }
 }

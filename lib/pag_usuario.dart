@@ -9,6 +9,7 @@ import 'package:flutter_application_1/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'Apidio.dart';
 
@@ -46,6 +47,7 @@ class _pagusuarioState extends State<pagusuario> {
   final TextEditingController telefono = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  final String host = dotenv.get("HOST");
   final idrol = 2;
   String pathImage = "images/google.png";
   @override
@@ -300,7 +302,7 @@ class _pagusuarioState extends State<pagusuario> {
       "contrasena": _passwordcontroller.text,
       "id_rol": idrol.toString()
     };
-      await dio.post("http://192.168.1.106:4000/api/registro",
+      await dio.post("$host/api/registro",
         options: Options(headers: headers), data: jsonEncode(user));
     nombre.clear();
     direccion.clear();

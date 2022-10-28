@@ -32,7 +32,7 @@ class AuthRepository {
       Future<String>? futureTokenFirebase =  _firebaseAuth.currentUser?.getIdToken();
       if (futureTokenFirebase != null){
         futureTokenFirebase.then((result) {
-          String tokenFirebase =result;
+          String tokenFirebase = result;
           SecureStorage.setToken(tokenFirebase);
         });
       }
