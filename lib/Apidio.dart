@@ -25,6 +25,7 @@ class Apidio {
     for(var el in res.data) {
       final Carta cart = Carta.fromJson(el);
       cart.imagen = "$host/${cart.imagen}";
+      print(cart.imagen);
       cartas.add(cart);
     }
     return cartas;

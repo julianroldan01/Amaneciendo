@@ -92,16 +92,25 @@ class _ProductsState extends State<Products> {
                                 ));
                       },
                       leading: SizedBox(
-                        width: 50,
-                        height: 100,
+                        width: 60,
+                        height: 60,
                         child: CachedNetworkImage(
                           imageUrl: snap.data![i].imagen,
+                          imageBuilder: (context, imageProvider) => Container(
+                            width: 80.0,
+                            height: 80.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover),
+                            ),
+                          ),
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
                                   CircularProgressIndicator(
                                       value: downloadProgress.progress),
                           errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: Text(snap.data![i].producto,

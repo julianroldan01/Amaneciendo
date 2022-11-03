@@ -4,6 +4,7 @@ import 'package:flutter_application_1/pag_empresario.dart';
 import 'package:flutter_application_1/Login.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
+import 'package:file_picker/file_picker.dart';
 import 'pag_usuario.dart';
 
 // ignore: camel_case_types

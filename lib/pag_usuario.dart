@@ -276,23 +276,6 @@ class _pagusuarioState extends State<pagusuario> {
     );
   }
 
-  // void saveUsuario() async {
-  //   final user = {
-  //     "nombre": nombre.text,
-  //     "direccion": direccion.text,
-  //     "telefono": telefono.text,
-  //     "email": correo.text,
-  //     "contrasena": contrasena.text,
-  //     "id_rol": idrol.text
-  //   };
-  //   await http.post(url, headers: headers, body: jsonEncode(user));
-  //   nombre.clear();
-  //   direccion.clear();
-  //   telefono.clear();
-  //   correo.clear();
-  //   contrasena.clear();
-  //   idrol.clear();
-  // }
   Future signUp() async {
     final user = {
       "nombre": nombre.text,
