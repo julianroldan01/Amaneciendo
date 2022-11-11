@@ -41,6 +41,11 @@ class Apidio {
     await dio.post("$host/api/carta", data: data);
   }
 
+  Future<void> updateEstancoGallery(FormData data) async {
+    await setToken();
+    await dio.post("$host/api/estanco/update-gallery", data: data);
+  }
+
   static Dio dioAuth() {
     Dio dio = Dio();
     return dio;

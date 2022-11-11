@@ -1,8 +1,11 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multiple_images_picker/multiple_images_picker.dart';
+import 'package:flutter_application_1/Apidio.dart';
 
 class galery extends StatefulWidget {
   const galery({super.key});
@@ -12,9 +15,32 @@ class galery extends StatefulWidget {
 }
 
 class _galeryState extends State<galery> {
-  final picker = ImagePicker();
   List<XFile>? imageFileList = [];
   late File _imagen = File('images/noimagen.png');
+  final Apidio dio = Apidio();
+
+  void selectImages() async {
+    final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 3);
+    if (selectedImages.isNotEmpty) {
+      imageFileList!.addAll(selectedImages);
+    }
+    setState(() {});
+  }
+
+
+  void send() async {
+    List<MultipartFile> multipart = <MultipartFile>[];
+    
+    for (int i = 0; i < imageFileList!.length; i++) {
+      multipart.add(await MultipartFile.fromFile(imageFileList![i].path));
+    }
+
+    FormData data = FormData.fromMap({
+      "imagenes": multipart
+    });
+    await dio.updateEstancoGallery(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +107,7 @@ class _galeryState extends State<galery> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shadowColor: Colors.amber[900]),
-                    onPressed: () {},
+                    onPressed: send,
                     // signIn,
                     child: const Text(
                       'Ingresar',
@@ -99,44 +125,14 @@ class _galeryState extends State<galery> {
                   GridView.count(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    crossAxisCount: 3,
-                    children: <Widget>[
-                    Image.file(
-                      height: 150,
-                      width: 150,
-                      File(imageFileList![0].path)
-                    ),
-                    Image.file(
-                      height: 150,
-                      width: 150,
-                      File(imageFileList![1].path)
-                    ),
-                    Image.file(
-                      height: 150,
-                      width: 150,
-                      File(imageFileList![2].path)
-                    ),
-                  ]) :
-                  null
+                    crossAxisCount: imageFileList!.length,
+                    children: List<Widget>.generate(
+                      imageFileList!.length,
+                      (index) => Image.file(File(imageFileList![index].path))
+                    )
+                  ): null
             ),
           ]),
     );
-  }
-
-  //   void _getImagen() async {
-  //   // ignore: invalid_use_of_visible_for_testing_member
-  //   var imagen = await picker.pickImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     if (imagen != null) {
-  //       _imagen = File(imagen.path);
-  //     }
-  //   });
-  // }
-  void selectImages() async {
-    final List<XFile> selectedImages = await picker.pickMultiImage();
-    if (selectedImages.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-    }
-    setState(() {});
   }
 }
