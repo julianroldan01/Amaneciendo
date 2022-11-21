@@ -1,10 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/Auth/auth_bloc.dart';
 import 'package:flutter_application_1/cliente/nose.dart';
 import 'package:flutter_application_1/empresario/home.dart';
 import 'package:flutter_application_1/header_register.dart';
+import 'package:flutter_application_1/models/infouser.dart';
+import 'package:flutter_application_1/models/roles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'Apidio.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,6 +21,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  final Apidio apiDio = Apidio();
   // FirebaseAuth auth = FirebaseAuth.instance;
   String pathImage = "images/google.png";
 
@@ -29,7 +34,24 @@ class _LoginState extends State<Login> {
     }
   }
 
-//
+  void defineUserRole(context) async {
+    Info info = await apiDio.getUserInfo();
+    if (info.rol == ROL_EMPRESARIO) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    }
+    if (info.rol == ROL_USUARIO) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const nose(),
+        ),
+      );
+    }
+  }
+
   void _authenticateWithGoogle(context) {
     BlocProvider.of<AuthBloc>(context).add(
       GoogleSignInRequested(),
@@ -66,13 +88,9 @@ class _LoginState extends State<Login> {
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: BlocListener<AuthBloc, AuthState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state is Authenticated) {
-                  // Navigating to the dashboard screen if the user is authenticated
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                  defineUserRole(context);
                 }
                 if (state is AuthError) {
                   // Showing the error message if the user has entered invalid credentials
@@ -221,7 +239,10 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           child: TextButton(
                             onPressed: () {},
-                            child: const Text("Olvide mi contraseña", style: TextStyle(color:Colors.white),),
+                            child: const Text(
+                              "Olvide mi contraseña",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ],

@@ -1,17 +1,16 @@
 // To parse this JSON data, do
 //
-//     final Estanco = EstancoFromJson(jsonString);
+//     final formulario = formularioFromJson(jsonString);
 
 import 'dart:convert';
 
-// ignore: non_constant_identifier_names
-List<Estanco> EstancoFromJson(String str) => List<Estanco>.from(json.decode(str).map((x) => Estanco.fromJson(x)));
+List<formulario> formularioFromJson(String str) => List<formulario>.from(json.decode(str).map((x) => formulario.fromJson(x)));
 
-// ignore: non_constant_identifier_names
-String EstancoToJson(List<Estanco> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String formularioToJson(List<formulario> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Estanco {
-    Estanco({
+// ignore: camel_case_types
+class formulario {
+    formulario({
        required this.idEstanco,
        required this.nombreEstanco,
        required this.direccionEstanco,
@@ -26,10 +25,16 @@ class Estanco {
        required this.longitud,
        required this.latitud,
        required this.nit,
-       required this.cedulaRepresentante
+       required this.cedulaRepresentante,
+       required this.nombre,
+       required this.direccion,
+       required this.email,
+       required this.contrasena,
+       required this.telefono,
+       required this.idRol,
     });
 
-    int idEstanco;
+    dynamic idEstanco;
     String nombreEstanco;
     String direccionEstanco;
     String barrio;
@@ -44,8 +49,14 @@ class Estanco {
     String latitud;
     String nit;
     String cedulaRepresentante;
+    String nombre;
+    String direccion;
+    String email;
+    String contrasena;
+    String telefono;
+    int idRol;
 
-    factory Estanco.fromJson(Map<String, dynamic> json) => Estanco(
+    factory formulario.fromJson(Map<String, dynamic> json) => formulario(
         idEstanco: json["id_estanco"],
         nombreEstanco: json["nombre_estanco"],
         direccionEstanco: json["direccion_estanco"],
@@ -61,6 +72,12 @@ class Estanco {
         latitud: json["latitud"],
         nit: json["nit"],
         cedulaRepresentante: json["cedula_representante"],
+        nombre: json["nombre"],
+        direccion: json["direccion"],
+        email: json["email"],
+        contrasena: json["contrasena"],
+        telefono: json["telefono"],
+        idRol: json["id_rol"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -79,5 +96,11 @@ class Estanco {
         "latitud": latitud,
         "nit": nit,
         "cedula_representante": cedulaRepresentante,
+        "nombre": nombre,
+        "direccion": direccion,
+        "email": email,
+        "contrasena": contrasena,
+        "telefono": telefono,
+        "id_rol": idRol,
     };
 }

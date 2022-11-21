@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/Login.dart';
 import 'package:flutter_application_1/cliente/nose.dart';
 import 'package:flutter_application_1/Utils.dart';
 import 'package:flutter_application_1/models/user.dart';
@@ -77,7 +78,7 @@ class _pagusuarioState extends State<pagusuario> {
             // Navigating to the nose screen if the user is authenticated
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const nose(),
+                builder: (context) => const Login(),
               ),
             );
           }

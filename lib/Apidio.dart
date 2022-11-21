@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/models/carta.dart';
+import 'package:flutter_application_1/models/infouser.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'Secure_Storage.dart';
@@ -17,6 +19,12 @@ class Apidio {
     }
   }
 
+  Future<Info> getUserInfo() async {
+    await setToken();
+    final res = await dio.get("$host/api/informacion");
+    final Info info = Info.fromJson(res.data);
+    return info;
+  }
 
   Future<List<Carta>> getAllCarta(int type) async {
     await setToken();
@@ -25,7 +33,6 @@ class Apidio {
     for(var el in res.data) {
       final Carta cart = Carta.fromJson(el);
       cart.imagen = "$host/${cart.imagen}";
-      print(cart.imagen);
       cartas.add(cart);
     }
     return cartas;
@@ -50,4 +57,5 @@ class Apidio {
     Dio dio = Dio();
     return dio;
   }
+
 }

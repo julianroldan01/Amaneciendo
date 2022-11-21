@@ -38,6 +38,7 @@ class _empresarioState extends State<empresario> {
   final TextEditingController nombre = TextEditingController();
   final TextEditingController direccion = TextEditingController();
   final TextEditingController telefono = TextEditingController();
+  final TextEditingController descripcion = TextEditingController();
   final TextEditingController nitempresa = TextEditingController();
   final TextEditingController nombreestanco = TextEditingController();
   final TextEditingController tipodocumento = TextEditingController(text: "cc");
@@ -193,6 +194,25 @@ class _empresarioState extends State<empresario> {
               enableInteractiveSelection: false,
               decoration: InputDecoration(
                 hintText: 'Telefono',
+                hintStyle: const TextStyle(
+                    fontSize: 20.0, color: Color.fromARGB(158, 255, 255, 255)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8),
+            ),
+            TextField(
+              minLines: null,
+              maxLines: null,
+              controller: descripcion,
+              enableInteractiveSelection: false,
+              decoration: InputDecoration(
+                hintText: 'Descripcion del estanco',
                 hintStyle: const TextStyle(
                     fontSize: 20.0, color: Color.fromARGB(158, 255, 255, 255)),
                 border:
@@ -531,7 +551,6 @@ class _empresarioState extends State<empresario> {
   Future signUp() async {
     final user = {
       "nombre": nombre.text,
-      "direccion": direccion.text,
       "telefono": telefono.text,
       "email": _emailcontroller.text,
       "contrasena": _passwordcontroller.text,
@@ -540,6 +559,25 @@ class _empresarioState extends State<empresario> {
     await dio.post("$host/api/registro",
         options: Options(headers: headers), data: jsonEncode(user));
     nombre.clear();
+    telefono.clear();
+    _emailcontroller.clear();
+    _passwordcontroller.clear();
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+  }
+    Future signUpEstanco() async {
+    final estanco = {
+      "nombre_estanco": nombreestanco.text,
+      "direccion_estanco": direccion.text,
+      "descripcion": descripcion.text,
+      "telefono": telefono.text,
+      "email": _emailcontroller.text,
+      "contrasena": _passwordcontroller.text,
+      "id_rol": idrol.toString()
+    };
+    await dio.post("$host/api/estanco",
+        options: Options(headers: headers), data: jsonEncode(estanco));
+    nombreestanco.clear();
     direccion.clear();
     telefono.clear();
     _emailcontroller.clear();
