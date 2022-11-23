@@ -1,12 +1,10 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
 
+// ignore: non_constant_identifier_names
 List<Users> UsersFromJson(String str) =>
     List<Users>.from(json.decode(str).map((x) => Users.fromJson(x)));
 
+// ignore: non_constant_identifier_names
 String UsersToJson(List<Users> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 

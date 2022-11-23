@@ -1,50 +1,60 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/nosemaps/map_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
-// ignore: camel_case_types
-class nort extends StatefulWidget {
-  const nort({super.key});
+void main() => runApp(MyApp());
 
+class MyApp extends StatelessWidget {
   @override
-  State<nort> createState() => _nortState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Google Maps',
+      home: nort(),
+    );
+  }
+}
+
+class nort extends StatefulWidget {
+  @override
+  State<nort> createState() => nortState();
 }
 
 // ignore: camel_case_types
-class _nortState extends State<nort> {
-  bool shadowColor = false;
-  double? scrolledUnderElevation;
-  final Completer<GoogleMapController> _controller = Completer();
-
-  // ignore: prefer_const_constructors
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: const LatLng(37.42796133580664, -122.085749655962),
+class nortState extends State<nort> {
+  // final Completer<GoogleMapController> _controller = Completer();
+  static const CameraPosition kGooglePlex = CameraPosition(
+    target: LatLng(2.9740654, -75.2850609),
     zoom: 14.4746,
-  );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-  final _initialCameraPosition = const CameraPosition(
-    target: LatLng(0, 0),
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+     return ChangeNotifierProvider<map_controller>(
+      create:  (_){
+        final controller = map_controller();
+        controller.onMarkerTap.listen((String id) {
+          print("got to $id"); 
+        });
+        return controller;
+      },
+      child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Maps Sample App'),
+          backgroundColor: Colors.orange,
+        ),
+      body: Consumer<map_controller>(builder:(_,controller,__) => GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: kGooglePlex,
+        onLongPress: controller.onLongPress,
+        onMapCreated: controller.onMapCreated,
+        markers: controller.markers,
       ),
-    );
+    )),
+     ));
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
 }

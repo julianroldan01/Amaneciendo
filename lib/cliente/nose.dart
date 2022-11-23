@@ -1,7 +1,8 @@
 // ignore_for_file: deprecated_member_use
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/nosemaps/mapsample.dart';
+import 'package:flutter_application_1/nosemaps/este.dart';
+import 'package:flutter_application_1/nosemaps/sur.dart';
 import '../Login.dart';
 import 'descripcion.dart';
 import '../nosemaps/norte.dart';
@@ -24,44 +25,6 @@ class _noseState extends State<nose> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    // return Scaffold(
-    //     body: ListView(
-    //   children: [
-    //     GridView.count(
-    //       crossAxisCount: 2,
-    //       physics:
-    //           const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
-    //       shrinkWrap: true, // You won't see infinite size error
-    //       children: [
-    //         Container(
-    //           decoration: const BoxDecoration(
-    //             image: DecorationImage(
-    //                 image: AssetImage('images/norte.png'), fit: BoxFit.fill),
-    //           ),
-    //         ),
-    //         Container(
-    //           decoration: const BoxDecoration(
-    //             image: DecorationImage(
-    //                 image: AssetImage('images/oeste.png'), fit: BoxFit.fill),
-    //           ),
-    //         ),
-    //         Container(
-    //           decoration: const BoxDecoration(
-    //             image: DecorationImage(
-    //                 image: AssetImage('images/sur.png'), fit: BoxFit.fill),
-    //           ),
-    //         ),
-    //         Container(
-    //           decoration: const BoxDecoration(
-    //             image: DecorationImage(
-    //                 image: AssetImage('images/este.png'), fit: BoxFit.fill),
-    //           ),
-    //         )
-    //       ],
-    //     ),
-    //   ],
-    // ));
-
     final contenedor = Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -133,19 +96,7 @@ class _noseState extends State<nose> {
                   builder: (context) => Stack(
                         children: <Widget>[
                           contenedor,
-                          ListView(children: <Widget>[
-                            DescriptionPlace(
-                                "images/drunkemoji.png",
-                                "Emoji",
-                                4,
-                                "3108051414",
-                                "Estanco y club nocturno",
-                                "Horario: Martes a domingo",
-                                "Hora: 9:00 PM - 5:00 AM",
-                                "Direccion:Calle 13B #32-31",
-                                "Barrio: Santa Ines")
-                          ]),
-                          // const HeaderAppBar()
+                          Stack(children: <Widget>[sur()]),
                         ],
                       ));
               Navigator.push(context, route);
@@ -163,19 +114,7 @@ class _noseState extends State<nose> {
                   builder: (context) => Stack(
                         children: <Widget>[
                           contenedor,
-                          ListView(children: <Widget>[
-                            DescriptionPlace(
-                                "images/drunkemoji.png",
-                                "Emoji",
-                                4,
-                                "3108051414",
-                                "Estanco y club nocturno",
-                                "Horario: Martes a domingo",
-                                "Hora: 9:00 PM - 5:00 AM",
-                                "Direccion:Calle 13B #32-31",
-                                "Barrio: Santa Ines")
-                          ]),
-                          // const HeaderAppBar()
+                          Stack(children: <Widget>[este()]),
                         ],
                       ));
               Navigator.push(context, route);
@@ -187,37 +126,41 @@ class _noseState extends State<nose> {
       ],
     );
     return BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is UnAuthenticated) {
-              // Navigate to the sign in screen when the user Signs Out
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => Login()),
-                (route) => false,
-              );
-            }
-          },
-     child: Scaffold(
-          appBar: AppBar(centerTitle: true,title: const Text("ZONAS", style: TextStyle(color:Colors.white)),
-          backgroundColor: Color(0xFFFFAE00),
-          actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
-            tooltip: 'Login',
-            onPressed: () {
+        listener: (context, state) {
+          if (state is UnAuthenticated) {
+            // Navigate to the sign in screen when the user Signs Out
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => Login()),
+              (route) => false,
+            );
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text("ZONAS", style: TextStyle(color: Colors.white)),
+            backgroundColor: Color(0xFFFFAE00),
+            actions: <Widget>[
+              IconButton(
+                icon:
+                    const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+                tooltip: 'Login',
+                onPressed: () {
                   // Signing out the user
                   context.read<AuthBloc>().add(SignOutRequested());
-                },),
-      ],),
-    body: ListView(
-        children: <Widget>[
-          Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[ 
-                iconBar, iconBar2]),
-        ],
-      ),
-    ));
+                },
+              ),
+            ],
+          ),
+          body: ListView(
+            children: <Widget>[
+              Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[iconBar, iconBar2]),
+            ],
+          ),
+        ));
   }
 }

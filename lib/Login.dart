@@ -36,6 +36,7 @@ class _LoginState extends State<Login> {
 
   void defineUserRole(context) async {
     Info info = await apiDio.getUserInfo();
+    print(info.rol);
     if (info.rol == ROL_EMPRESARIO) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
