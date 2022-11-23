@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/Products_cliente.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../cliente/categorias_clientes/cerveza_importada.dart';
 import '../../cliente/categorias_clientes/energizantes.dart';
@@ -42,7 +43,7 @@ class licoresnacionalesState extends State<licoresnacionales> {
                       iconSize: 48,
                     ),
                   ]),
-              Products(type: 3),
+              listCliente(type: 3),
             ],
           ),
         ),

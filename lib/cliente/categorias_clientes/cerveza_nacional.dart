@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/Products_cliente.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../components/Products.dart';
 
 // ignore: camel_case_types
 class cervezanacional extends StatefulWidget {
@@ -39,14 +39,13 @@ class _cervezanacionalState extends State<cervezanacional> {
                     ),
                    
                   ]),
-              Products(type: 1),
+              listCliente(type: 1),
             ],
           ),
         ),
       ),
     );
   }
-
   @override
   void initState() {
     super.initState();
